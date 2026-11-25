@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent Watcher event v2",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "eventId",
+    "commandId",
+    "timeUtc",
+    "agentApp",
+    "source",
+    "attribution",
+    "event"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "eventId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "commandId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "timeUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "observedUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "agentApp": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "source": {
+      "enum": [
+        "executor",
+        "codex",
+        "claude",
+        "antigravity",
+        "windows-audit",
+        "collector"
+      ]
+    },
+    "attribution": {
+      "enum": [
+        "reported",
+        "inferred",
+        "unknown"
+      ]
+    },
+    "commandPreview": {
+      "type": "string"
+    },
+    "command": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "stream": {
+      "enum": [
+        "stdout",
+        "stderr",
+        "combined",
+        "terminal"
+      ]
+    },
+    "text": {
+      "type": "string"
+    },
+    "outcome": {
+      "enum": [
+        "succeeded",
+        "failed",
+        "cancelled",
+        "denied",
+        "launchFailed",
+        "unknown"
+      ]
+    },
+    "exitCode": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "outputStatus": {
+      "enum": [
+        "complete",
+        "empty",
+        "partial",
+        "unavailable",
+        "unknown"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    },
+    "pid": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "lastOutputSequence": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "event": {
+          "enum": [
+            "commandRequested",
+            "commandStarted"
+          ]
+        }
+      },
+      "required": [
+        "command"
+      ]
+    },
+    {
+      "properties": {
+        "event": {
+          "const": "commandOutput"
+        }
+      },
+      "required": [
+        "sequence",
+        "stream",
+        "text"
+      ]
+    },
+    {
+      "properties": {
+        "event": {
+          "const": "commandFinished"
+        }
+      },
+      "required": [
+        "outcome",
+        "outputStatus"
+      ]
+    },
+    {
+      "properties": {
+        "event": {
+          "const": "processObserved"
+        }
+      },
+      "required": [
+        "command"
+      ]
+    },
+    {
+      "properties": {
+        "event": {
+          "const": "captureGap"
+        }
+      },
+      "required": [
+        "reason"
+      ]
+    }
+  ]
+}

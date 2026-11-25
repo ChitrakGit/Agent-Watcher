@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"fixture"}
+{"type":"item.started","item":{"type":"command_execution","id":"c1","command":"example --api-key=FAKE_KEY"}}
+{"type":"item.completed","item":{"type":"command_execution","id":"c1","command":"example --api-key=FAKE_KEY","aggregated_output":"error\n","exit_code":7}}
+{"type":"item.completed","item":{"type":"agent_message","id":"m1","text":"PRIVATE_CHAT"}}

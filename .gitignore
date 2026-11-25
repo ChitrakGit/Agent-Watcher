@@ -1,0 +1,5 @@
+/target/
+/dist/
+*.sqlite*
+*.tmp
+/test-results/

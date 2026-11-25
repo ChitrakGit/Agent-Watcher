@@ -1,0 +1,1 @@
+{"hook_event_name":"PostToolUse","session_id":"fixture","tool_use_id":"call-1","tool_name":"Bash","tool_input":{"command":"echo ok"},"tool_response":{"stdout":"ok\n","stderr":"warning\n","exitCode":0}}

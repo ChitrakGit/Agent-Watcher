@@ -1,0 +1,5 @@
+[
+  {"schemaVersion":2,"eventId":"e1","commandId":"c1","timeUtc":"2026-11-24T12:00:00.000Z","observedUtc":"2026-11-24T12:00:00.001Z","agentApp":"Example Agent","source":"executor","attribution":"reported","event":"commandStarted","command":"echo hello"},
+  {"schemaVersion":2,"eventId":"e2","commandId":"c1","commandPreview":"echo hello","timeUtc":"2026-11-24T12:00:00.002Z","agentApp":"Example Agent","source":"executor","attribution":"reported","event":"commandOutput","sequence":0,"stream":"stdout","text":"hello 🦀\n"},
+  {"schemaVersion":2,"eventId":"e3","commandId":"c1","timeUtc":"2026-11-24T12:00:00.003Z","agentApp":"Example Agent","source":"executor","attribution":"reported","event":"commandFinished","outcome":"succeeded","exitCode":0,"outputStatus":"complete"}
+]

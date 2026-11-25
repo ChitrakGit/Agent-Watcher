@@ -1,0 +1,35 @@
+name: Build and test Agent Watcher
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: rustup update stable
+      - run: cargo +stable generate-lockfile
+      - run: cargo +stable test --locked --all-targets
+      - run: cargo +stable test --locked --test storage large_output -- --ignored
+      - run: node --test tests/contracts.test.cjs
+      - run: ./scripts/Test-IntegrationScripts.ps1
+        shell: pwsh
+      - run: cargo +stable build --locked --release --bins
+      - run: ./scripts/Test-WindowsService.ps1 -DisposableMachine
+        shell: pwsh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: agent-watcher-windows-x64
+          path: |
+            target/release/agent-watcher.exe
+            target/release/agent-watcher-view.exe
+            Cargo.lock
+            scripts/
+            README.md
+            CHANGELOG.md
